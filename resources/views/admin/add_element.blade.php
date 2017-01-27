@@ -77,12 +77,12 @@
                                         <th>Element</th>
                                         <th style="width: 40px">Label</th>
                                     </tr>
-                                    @foreach($elements as $element)
+                                    @foreach($elements as $key=>$element)
                                         <tr>
-                                            <td>{{$element->id}}</td>
+                                            <td>{{$key}}</td>
                                             <td>{{$element->name}}</td>
                                             <td>
-                                                <button class="btn btn-danger btn-sm">Sil</button>
+                                                <a class="btn btn-danger btn-sm" href="{{route('admin.getelementdelete', ['id' => $element->id])}}">Sil</a>
                                             </td>
                                         </tr>
                                     @endforeach

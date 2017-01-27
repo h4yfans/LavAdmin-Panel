@@ -14,8 +14,6 @@ use Image;
 
 class ElementController extends Controller
 {
-
-
     public function getElementsAction()
     {
         $elements = Element::all();
@@ -40,4 +38,13 @@ class ElementController extends Controller
         return redirect()->back();
     }
 
+    public function getDeleteElementAction($id){
+        $element = Element::find($id);
+
+        $element->elementcontext()->delete();
+        $element->categories()->delete();
+        $element->delete();
+
+        return redirect()->back();
+    }
 }

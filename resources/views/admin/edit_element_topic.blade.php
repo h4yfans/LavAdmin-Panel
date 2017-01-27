@@ -64,7 +64,8 @@
 
                                     </select>
                                 </div>
-                                Mevcut Kategori: <strong>{{$topic->category->name}}</strong>
+                                Mevcut Kategori:
+                                <strong>{{$topic->category_id ? $topic->category->name:'Seçili Kategori Yok'}}</strong>
                             </div>
                         </div>
                         <div class="box box-default">
@@ -89,7 +90,8 @@
 
                 <div class="col-md-4">
                     @if(count($topic->element->sidemenu))
-                        <form action="{{route('admin.posteditelementtopicsidemenu', ['element_id' => $topic->element->id])}}" method="POST">
+                        <form action="{{route('admin.posteditelementtopicsidemenu', ['element_id' => $topic->element->id])}}"
+                              method="POST">
                             <div class="box box-default">
                                 <div class="box-header with-border">
                                     <div class="box-title">

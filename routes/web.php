@@ -22,7 +22,7 @@ Route::get('/', function(){
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
-    Route::get('/', 'SummaryController@getIndex')->name('admin.getindex');
+    Route::get('/index', 'SummaryController@getIndex')->name('admin.getindex');
 
     Route::get('/general', 'GeneralSettingsController@getGeneralSettingsAction')->name('admin.getgeneralsettings');
     Route::post('/general', 'GeneralSettingsController@postGeneralSettingsAction')->name('admin.postgeneralsettings');
@@ -35,6 +35,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
     Route::get('/addelement', 'ElementController@getElementsAction')->name('admin.getelement');
     Route::post('/addelement/new', 'ElementController@postNewElementAction')->name('admin.postnewelement');
+    Route::get('/element/delete/{id}', 'ElementController@getDeleteElementAction')->name('admin.getelementdelete');
 
     Route::get('/element/addtopic/{id}', 'TopicController@getAddElementTopicAction')->name('admin.getaddelementtopic');
     Route::post('/element/addtopic/{id}/new', 'TopicController@postAddElementTopicAction')->name('admin.postaddelementtopic');

@@ -13,5 +13,4 @@ class SideBarController extends Controller
 
         return $elements;
     }
-
 }

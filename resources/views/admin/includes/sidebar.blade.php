@@ -19,40 +19,20 @@
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <img src="{{URL::asset('images/admin.jpg')}}" class="user-image" alt="User Image">
-                        <span class="hidden-xs">Kaan Karaca</span>
+                        <span class="hidden-xs">{{Auth::user()->name}}</span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
-                            <img src="images/admin.jpg" class="img-circle" alt="User Image">
-
                             <p>
-                                Kaan Karaca - Web Developer
-                                <small>Member since Nov. 2012</small>
+                                {{Auth::user()->name}}
                             </p>
                         </li>
-                        <!-- Menu Body -->
-                        <li class="user-body">
-                            <div class="row">
-                                <div class="col-xs-4 text-center">
-                                    <a href="#">Followers</a>
-                                </div>
-                                <div class="col-xs-4 text-center">
-                                    <a href="#">Sales</a>
-                                </div>
-                                <div class="col-xs-4 text-center">
-                                    <a href="#">Friends</a>
-                                </div>
-                            </div>
-                            <!-- /.row -->
-                        </li>
-                        <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="#" class="btn btn-default btn-flat">Profile</a>
                             </div>
                             <div class="pull-right">
-                                <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                <a href="" class="btn btn-default btn-flat">Sign out</a>
                             </div>
                         </li>
                     </ul>
@@ -71,7 +51,7 @@
                 <img src="{{URL::asset('images/admin.jpg')}}" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
-                <p>Kaan Karaca</p>
+                <p>{{Auth::user()->name}}</p>
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
         </div>
@@ -111,7 +91,16 @@
             </li>
 
             @foreach(App\Http\Controllers\SideBarController::getElementsAction() as $element)
-                <li class="treeview">
+                <li class="treeview
+                {{strpos(route('admin.getaddelementtopic', ['id' => $element->id]),"$_SERVER[REQUEST_URI]") ? 'active' : ''}}
+                {{strpos(route('admin.getallelementtopic', ['id' => $element->id]),"$_SERVER[REQUEST_URI]") ? 'active' : ''}}
+                {{strpos(route('admin.getsidemenus', ['id' => $element->id]),"$_SERVER[REQUEST_URI]") ? 'active' : ''}}
+                {{strpos(route('admin.getaddelementcategory', ['id' => $element->id]),"$_SERVER[REQUEST_URI]") ? 'active' : ''}}
+                        ">
+                    {{--
+                        Sitenin anlık linkini al ve an an aktif olan route linki ile karşılaştırarak,
+                        içerisinde barındırdığını kontrol et. Eğer Route linki içerisinde aktif link var ise (contain) 'active' et.
+                    --}}
                     <a href="#">
                         <i class="fa fa-pencil-square-o"></i> <span>{{$element->name}}</span>
                         <span class="pull-right-container">
@@ -119,15 +108,21 @@
             </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{route('admin.getaddelementtopic', ['id' => $element->id])}}"><i
+                        <li class="{{strpos(route('admin.getaddelementtopic', ['id' => $element->id]),"$_SERVER[REQUEST_URI]") ? 'active' : ''}}">
+                            <a href="{{route('admin.getaddelementtopic', ['id' => $element->id])}}"><i
                                         class="fa fa-circle-o"></i>{{$element->name}} Ekle</a></li>
-                        <li><a href="{{route('admin.getallelementtopic', ['id' => $element->id])}}"><i
+
+                        <li class="{{strpos(route('admin.getallelementtopic', ['id' => $element->id]),"$_SERVER[REQUEST_URI]") ? 'active' : ''}}">
+                            <a href="{{route('admin.getallelementtopic', ['id' => $element->id])}}"><i
                                         class="fa fa-circle-o"></i> Tüm {{$element->name}} </a></li>
-                        <li><a href="{{route('admin.getsidemenus', ['id' => $element->id])}}"><i
-                                        class="fa fa-circle-o"></i> Özel Alan Yönetimi</a>
-                        </li>
+
+                        <li class="{{strpos(route('admin.getsidemenus', ['id' => $element->id]),"$_SERVER[REQUEST_URI]") ? 'active' : ''}}">
+                            <a href="{{route('admin.getsidemenus', ['id' => $element->id])}}"><i
+                                        class="fa fa-circle-o"></i> Özel Alan Yönetimi</a></li>
+
                         @if($element->isCategory)
-                            <li class="active"><a
+                            <li class="{{strpos(route('admin.getaddelementcategory', ['id' => $element->id]),"$_SERVER[REQUEST_URI]") ? 'active' : ''}}">
+                                <a
                                         href="{{route('admin.getaddelementcategory', ['id' => $element->id])}}"><i
                                             class="fa fa-circle-o"></i> Kategori Yönetimi
                                 </a>
@@ -161,5 +156,8 @@
         $('ul.nav a').filter(function () {
             return this.href == url;
         }).parent().addClass('active');
+
+        var pathname = window.location.pathname;
+        console.log(pathname);
     </script>
 @endsection

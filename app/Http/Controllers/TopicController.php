@@ -42,8 +42,7 @@ class TopicController extends Controller
         $elementTopic->body       = $request['topic_body'];
         $elementTopic->image_path = $filename;
         if ($element->isCategory) {
-            $elementTopic->category_id = $category_id;
-
+            $elementTopic->category_id = $category_id ?: 0;
         }
         $element->elementcontext()->save($elementTopic);
 

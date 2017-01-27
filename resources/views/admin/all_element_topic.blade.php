@@ -27,11 +27,12 @@
                             <th>İşlem</th>
                         </tr>
 
+
                         @foreach($element->elementcontext as $elementcontext)
                             <tr>
                                 <td>{{$elementcontext->title}}</td>
                                 <td>
-                                    {{$elementcontext->element->isCategory ? $elementcontext->category->name : 'Kategori Yok'}}
+                                    {{$elementcontext->element->isCategory ? ($elementcontext->category_id == 0 ? 'Kategori Seçimi Yok' : $elementcontext->category->name ) : 'Kategori Yok'}}
                                 </td>
                                 <td>
                                     <span class="label {{$elementcontext->image_path ? 'label-success' : 'label-danger'}}">{{$elementcontext->image_path ? 'Var' : 'Yok'}}</span>
