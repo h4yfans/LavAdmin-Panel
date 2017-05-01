@@ -12,8 +12,7 @@ class CategoryController extends Controller
     {
         $element = Element::find($id);
 
-        return view('admin.add_category')
-            ->with(['element' => $element]);
+        return view('admin.add_category', compact('element'));
     }
 
     public function postAddElementCategoryAction($id, Request $request)
