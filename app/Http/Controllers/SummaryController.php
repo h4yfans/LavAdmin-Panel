@@ -18,11 +18,6 @@ class SummaryController extends Controller
 
         $element = Element::find(2);
 
-        return view('admin.index')
-            ->with([
-                'categories' => $categories,
-                'user'       => $user,
-                'topic'      => $topic
-            ]);
+        return view('admin.index', compact('categories', 'user', 'topic'));
     }
 }
